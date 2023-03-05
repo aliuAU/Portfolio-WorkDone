@@ -1,0 +1,49 @@
+import functools
+DictionaryOfValues = {}
+
+def GreaterThen120(value):
+    if(value>120):
+        return True
+    else:
+        return False
+def calculate(TotalInsulin,NeededDecrease=[]):
+   mgdlForLowerBloodSugar = 1800/TotalInsulin 
+   neededInsulinbyUNIT=[]
+   for x in NeededDecrease:
+       neededInsulinbyUNIT.append(x/mgdlForLowerBloodSugar)
+   return neededInsulinbyUNIT
+PeopleCounter=0
+Insulin=0
+InsulinDoses= []
+TotalAmountOfInsulin = []
+counterInsulin=0
+Greaterthen120List = []
+while(PeopleCounter<5):
+    name = input("Enter the patient name: ")
+    glucoseValueList = list(map(int,input("\nEnter patient's 12-hour blood glucose values: ").strip().split()))[:12] # input all elements in one go
+    DictionaryOfValues[name]=glucoseValueList
+    for x in DictionaryOfValues:
+        DictionaryOfValues[x] = list(filter(GreaterThen120, DictionaryOfValues[x]))
+        Greaterthen120List.append(DictionaryOfValues[x])
+        
+    print ("Glucose values over 120 mg/dl :",Greaterthen120List[PeopleCounter])
+    Insulin = eval(input("How many times did you take insulin in 12 hours? :"))
+    InsulinDoses = list(map(int,input("\nEnter insulin doses:").strip().split()))[:Insulin] # inputall elements in one go
+    TotalAmountOfInsulin.append(functools.reduce(lambda a, b: a+b, InsulinDoses))
+    PeopleCounter+=1
+
+for x in DictionaryOfValues:
+    counter = 0
+    DecreasesNeededlist = []
+    while(counter < len(DictionaryOfValues[x])):
+        DecreasesNeededlist.append(DictionaryOfValues[x][counter]-120)
+        counter +=1
+    NeededInsulinDoseByUnit=calculate(TotalAmountOfInsulin[counterInsulin],DecreasesNeededlist)
+    counterInsulin+=1
+    counter2=0
+    print(x,"Should Take:")
+    while(counter2<len(DictionaryOfValues[x])):
+        print(round(NeededInsulinDoseByUnit[counter2],2)," unit insulin for ",DictionaryOfValues[x][counter2])
+        counter2 +=1\
+    
+
