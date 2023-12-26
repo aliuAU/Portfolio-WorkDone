@@ -1,2 +1,2 @@
-# Projects-HWs
-Homeworks and projects given in lectures and internships.
+# Projects-HWs-Out of School Studies
+Out of school studies, coding during learning tech etc.
